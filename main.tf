@@ -57,6 +57,10 @@ module "network" {
   az_secondary = "us-east-1b"
 }
 
+module "cognito" {
+  source = "./modules/cognito"
+}
+
 module "frontend" {
   source           = "./modules/frontend"
   vpc_id           = module.network.vpc_id
@@ -66,16 +70,17 @@ module "frontend" {
 }
 
 module "backend" {
-  source            = "./modules/backend"
-  vpc_id            = module.network.vpc_id
-  private_subnet_id = module.network.private_subnet_id
-  public_subnet_id  = module.network.public_subnet_id 
-  db_endpoint       = module.rds.db_endpoint
-  db_name           = module.rds.db_name
-  db_username       = module.rds.username
-  db_password       = var.db_password
-  bucket_name       = module.s3.bucket_name
-  sg_id             = aws_security_group.backend_sg.id
+  source              = "./modules/backend"
+  vpc_id              = module.network.vpc_id
+  private_subnet_id   = module.network.private_subnet_id
+  public_subnet_id    = module.network.public_subnet_id 
+  db_endpoint         = module.rds.db_endpoint
+  db_name             = module.rds.db_name
+  db_username         = module.rds.username
+  db_password         = var.db_password
+  bucket_name         = module.s3.bucket_name
+  sg_id               = aws_security_group.backend_sg.id
+  cognito_issuer_uri  = module.cognito.issuer_uri
 }
 
 module "rds" {
@@ -91,4 +96,16 @@ module "rds" {
 module "s3" {
   source      = "./modules/s3"
   bucket_name = "chatapp-s3-bucket-272648"
+}
+
+output "user_pool_id" {
+  value = module.cognito.user_pool_id
+}
+
+output "client_id" {
+  value = module.cognito.client_id
+}
+
+output "issuer_uri" {
+  value = module.cognito.issuer_uri
 }

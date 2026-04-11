@@ -51,4 +51,16 @@ resource "aws_elastic_beanstalk_environment" "env" {
     name      = "BACKEND_URL"
     value     = "http://${var.backend_url}"
   }
+
+  setting {
+    namespace = "aws:elasticbeanstalk:cloudwatch:logs"
+    name      = "StreamLogs"
+    value     = "true"
+  }
+
+  setting {
+    namespace = "aws:elasticbeanstalk:cloudwatch:logs"
+    name      = "RetentionInDays"
+    value     = "1"
+  }
 }

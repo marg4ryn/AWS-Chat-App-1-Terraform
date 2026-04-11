@@ -52,27 +52,45 @@ resource "aws_elastic_beanstalk_environment" "env" {
     value     = var.sg_id
   }
 
-setting {
-  namespace = "aws:elasticbeanstalk:application:environment"
-  name      = "SPRING_DATASOURCE_URL"
-  value     = "jdbc:postgresql://${var.db_endpoint}/${var.db_name}"
-}
+  setting {
+    namespace = "aws:elasticbeanstalk:application:environment"
+    name      = "SPRING_DATASOURCE_URL"
+    value     = "jdbc:postgresql://${var.db_endpoint}/${var.db_name}"
+  }
 
-setting {
-  namespace = "aws:elasticbeanstalk:application:environment"
-  name      = "SPRING_DATASOURCE_USERNAME"
-  value     = var.db_username
-}
+  setting {
+    namespace = "aws:elasticbeanstalk:application:environment"
+    name      = "SPRING_DATASOURCE_USERNAME"
+    value     = var.db_username
+  }
 
-setting {
-  namespace = "aws:elasticbeanstalk:application:environment"
-  name      = "SPRING_DATASOURCE_PASSWORD"
-  value     = var.db_password
-}
+  setting {
+    namespace = "aws:elasticbeanstalk:application:environment"
+    name      = "SPRING_DATASOURCE_PASSWORD"
+    value     = var.db_password
+  }
 
-setting {
-  namespace = "aws:elasticbeanstalk:application:environment"
-  name      = "S3_BUCKET"
-  value     = var.bucket_name
-}
+  setting {
+    namespace = "aws:elasticbeanstalk:application:environment"
+    name      = "S3_BUCKET"
+    value     = var.bucket_name
+  }
+
+  setting {
+    namespace = "aws:elasticbeanstalk:cloudwatch:logs"
+    name      = "StreamLogs"
+    value     = "true"
+  }
+
+  setting {
+    namespace = "aws:elasticbeanstalk:cloudwatch:logs"
+    name      = "RetentionInDays"
+    value     = "1"
+  }
+
+  setting {
+    namespace = "aws:elasticbeanstalk:application:environment"
+    name      = "COGNITO_ISSUER_URI"
+    value     = var.cognito_issuer_uri
+  }
 }

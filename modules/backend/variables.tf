@@ -34,3 +34,5 @@ variable "bucket_name" {
 variable "sg_id" {
   type = string
 }
+
+variable "cognito_issuer_uri" {}
