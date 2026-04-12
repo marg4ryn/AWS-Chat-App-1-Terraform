@@ -13,3 +13,11 @@ variable "backend_url" {
 variable "sg_id" {
   type = string
 }
+
+variable "cognito_user_pool_id" {
+  type = string
+}
+
+variable "cognito_client_id" {
+  type = string
+}

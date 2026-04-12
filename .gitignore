@@ -1,5 +1,41 @@
-.terraform
+# Terraform core
+.terraform/
 .terraform.lock.hcl
 terraform.tfstate
-terraform.tfstate.backup
-terraform.tfvars
+terraform.tfstate.*
+crash.log
+
+# Variables (często zawierają sekrety)
+*.tfvars
+*.tfvars.json
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+
+# Plan files
+*.tfplan
+
+# CLI config files
+.terraformrc
+terraform.rc
+
+# Sensitive / local files
+*.pem
+*.key
+*.crt
+
+# Logs
+*.log
+
+# Editor / OS
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+
+# Environment files
+.env
+.env.*

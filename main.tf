@@ -62,11 +62,13 @@ module "cognito" {
 }
 
 module "frontend" {
-  source           = "./modules/frontend"
-  vpc_id           = module.network.vpc_id
-  public_subnet_id = module.network.public_subnet_id
-  backend_url      = module.backend.backend_url
-  sg_id            = aws_security_group.frontend_sg.id
+  source                = "./modules/frontend"
+  vpc_id                = module.network.vpc_id
+  public_subnet_id      = module.network.public_subnet_id
+  backend_url           = module.backend.backend_url
+  sg_id                 = aws_security_group.frontend_sg.id
+  cognito_user_pool_id  = module.cognito.user_pool_id
+  cognito_client_id     = module.cognito.client_id
 }
 
 module "backend" {
@@ -96,16 +98,4 @@ module "rds" {
 module "s3" {
   source      = "./modules/s3"
   bucket_name = "chatapp-s3-bucket-272648"
-}
-
-output "user_pool_id" {
-  value = module.cognito.user_pool_id
-}
-
-output "client_id" {
-  value = module.cognito.client_id
-}
-
-output "issuer_uri" {
-  value = module.cognito.issuer_uri
 }

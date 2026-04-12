@@ -63,4 +63,16 @@ resource "aws_elastic_beanstalk_environment" "env" {
     name      = "RetentionInDays"
     value     = "1"
   }
+
+    setting {
+    namespace = "aws:elasticbeanstalk:application:environment"
+    name      = "COGNITO_USER_POOL_ID"
+    value     = var.cognito_user_pool_id
+  }
+
+  setting {
+    namespace = "aws:elasticbeanstalk:application:environment"
+    name      = "COGNITO_CLIENT_ID"
+    value     = var.cognito_client_id
+  }
 }
